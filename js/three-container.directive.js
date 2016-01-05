@@ -5,7 +5,7 @@ angular.module('three', [])
     var directive = {
         link: threeContainerLink,
         replace: true,
-        template: '<div></div>',
+        template: '<div class="three-container"></div>',
         scope: {
             width: '=',
             height: '=',
