@@ -35,8 +35,11 @@ angular.module('three', [])
         scene.add( light );
 
         // Renderer
-        var renderer = new THREE.WebGLRenderer();
+        var renderer = new THREE.WebGLRenderer({ alpha: true });
         renderer.setSize(containerWith, containerHeight);
+        renderer.autoClear = false;
+        //renderer.setClearColor(0xebebeb);
+
         // DOM
         element.append(renderer.domElement);
 
