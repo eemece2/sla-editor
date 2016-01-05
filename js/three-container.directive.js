@@ -61,6 +61,13 @@ angular.module('three', [])
         controls.addEventListener( 'change', function () {
         });
 
+        // TransformControls
+        var transformControls = new THREE.TransformControls( camera, element.domElement );
+        transformControls.addEventListener( 'change', function () {
+            console.log('change');
+        });
+
+
         function render() {
             requestAnimationFrame(render);
 
