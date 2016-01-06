@@ -3,7 +3,7 @@ angular.module('three', [])
 
 .directive('threeContainer', function($window) {
     var directive = {
-        link: threeContainerLink,
+        link: threeContainerLink_1,
         replace: true,
         template: '<div class="three-container"></div>',
         scope: {
@@ -17,12 +17,11 @@ angular.module('three', [])
 
     ///////////////////////////////////////////////////////////////////////////
 
-    function threeContainerLink(scope, element, attrs) {
+    function threeContainerLink_1(scope, element, attrs) {
 
         var editor = new Editor();
 
         var viewport = new Viewport( editor, element[0] );
-        //document.body.appendChild( viewport.dom );
 
         editor.setTheme( editor.config.getKey( 'theme' ) );
 
@@ -36,7 +35,7 @@ angular.module('three', [])
 
         };
 
-        window.addEventListener( 'resize', onWindowResize, false );
+        $window.addEventListener( 'resize', onWindowResize, false );
 
         onWindowResize();
     }
@@ -44,7 +43,7 @@ angular.module('three', [])
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    function threeContainerLink____(scope, element, attrs) {
+    function threeContainerLink_2(scope, element, attrs) {
 
         var containerWith = (scope.fillcontainer) ? element[0].clientWidth : scope.width;
         var containerHeight = (scope.fillcontainer) ? element[0].clientHeight : scope.height;

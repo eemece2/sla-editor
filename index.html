@@ -3,31 +3,45 @@
     <head>
         <meta charset=utf-8>
         <title>Angular - three.js</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link href="css/main.css" rel="stylesheet" />
+        <link id="theme" href="css/light.css" rel="stylesheet" />
+
         <link rel="stylesheet" type="text/css" href="css/demo.css">
         <link rel="stylesheet" type="text/css" href="css/editor.css">
     </head>
     <body ng-app="myApp" ng-controller="AppController as ctrl">
+    <!--<body ontouchstart="">-->
+
 
         <div class="three-block">
             <three-container fillcontainer="true"></three-container>
-            <!--<three-container fillcontainer="false" height="500" width="500"></three-container>-->
+            <!--[><three-container fillcontainer="false" height="500" width="500"></three-container><]-->
         </div>
 
+        <div style="width:600px;height:300px;">
+            <!--<div class="Panel" id="viewport">-->
+                <!--<div class="Panel" id="info" style="left:10px;botom:10px">-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
 
-        <button ng-click="ctrl.newWidth()">Change</button>
+        <!--<button ng-click="ctrl.newWidth()">Change</button>-->
 
         <script src="bower_components/angular/angular.min.js"></script>
 
-        <script src="js/lib/three.min.js"></script>
+        <script src="lib/three.min.js"></script>
         <script src="js/controls/EditorControls.js"></script>
         <script src="js/controls/TransformControls.js"></script>
-        <script src="js/lib/signals.min.js"></script>
+        <script src="js/libs/signals.min.js"></script>
         <script src="js/Storage.js"></script>
         <script src="js/Editor.js"></script>
         <script src="js/EditorStorage.js"></script>
         <script src="js/Config.js"></script>
         <script src="js/Loader.js"></script>
         <script src="js/Viewport.js"></script>
+
+        <!--<script src="js/App.js"></script>-->
 
         <script src="app/three-container.directive.js"></script>
         <script src="app/app.js"></script>
