@@ -31,6 +31,13 @@ angular.module('three', [])
 
         var editorStorage = new EditorStorage(editor, storage);
 
+        editor.signals.loadingFinished.add( function (state) {
+            console.log('loaded', state);
+            if(!state) {
+                addLights();
+            }
+        });
+
         var onWindowResize = function ( event ) {
 
             editor.signals.windowResize.dispatch();
@@ -44,16 +51,17 @@ angular.module('three', [])
         ///////////////////////////////////////////////////////////////////////
         // scene
         // Lights
-        //var ambient = new THREE.AmbientLight(0x999999);
-        //editor.scene.add(ambient);
-        //var light = new THREE.DirectionalLight(0xefefef, 1.5);
-        //light.position.set(1.5, 1, 1).normalize();
-        //editor.scene.add(light);
+        function addLights() {
+            var ambient = new THREE.AmbientLight(0x999999);
+            editor.scene.add(ambient);
+            var light = new THREE.DirectionalLight(0xefefef, 1.5);
+            light.position.set(1.5, 1, 1).normalize();
+            editor.scene.add(light);
+        }
         //// Object selection
         //editor.signals.objectSelected.add(function(object) {
             //console.log(object);
         //});
-        
     }
 
     ///////////////////////////////////////////////////////////////////////////

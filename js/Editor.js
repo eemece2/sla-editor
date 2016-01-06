@@ -31,6 +31,8 @@ var Editor = function () {
         savingStarted: new SIGNALS.Signal(),
         savingFinished: new SIGNALS.Signal(),
 
+        loadingFinished: new SIGNALS.Signal(),
+
         themeChanged: new SIGNALS.Signal(),
 
         transformModeChanged: new SIGNALS.Signal(),
@@ -70,8 +72,8 @@ var Editor = function () {
     };
 
     this.config = new Config();
-    //this.storage = new Storage();
-    //this.loader = new Loader( this );
+    this.storage = new Storage();
+    this.loader = new Loader( this );
 
     this.camera = new THREE.PerspectiveCamera( 50, 1, 1, 100000 );
     this.camera.name = 'Camera';

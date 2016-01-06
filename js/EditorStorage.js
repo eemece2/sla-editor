@@ -11,6 +11,8 @@ storage.init( function () {
         if ( selected !== undefined ) {
             editor.selectByUuid( selected );
         }
+
+        editor.signals.loadingFinished.dispatch(state);
     } );
 
     var timeout;
