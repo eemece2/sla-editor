@@ -25,10 +25,44 @@ var Viewport = function ( editor, domElement ) {
 
     // helpers
 
-    var grid = new THREE.GridHelper( 500, 25 );
+    var limits = {
+        width: 200,
+        height: 200
+    };
+    var grid = new THREE.GridHelper(limits.width / 2, 10);
     sceneHelpers.add( grid );
 
-    //
+    // limits box
+    var limitGeometry = new THREE.Geometry();
+    var limitMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
+    var ww = limits.width / 2;
+    var hh = limits.height;
+    limitGeometry.vertices.push(
+            new THREE.Vector3(ww, 0, ww),
+            new THREE.Vector3(ww, hh, ww),
+            new THREE.Vector3(-ww, hh, ww),
+            new THREE.Vector3(-ww, 0, ww)
+    );
+    limitGeometry.vertices.push(
+            new THREE.Vector3(-ww, 0, ww),
+            new THREE.Vector3(-ww, hh, ww),
+            new THREE.Vector3(-ww, hh, -ww),
+            new THREE.Vector3(-ww, 0, -ww)
+    );
+    limitGeometry.vertices.push(
+            new THREE.Vector3(-ww, 0, -ww),
+            new THREE.Vector3(-ww, hh, -ww),
+            new THREE.Vector3(ww, hh, -ww),
+            new THREE.Vector3(ww, 0, -ww)
+    );
+    limitGeometry.vertices.push(
+            new THREE.Vector3(ww, 0, -ww),
+            new THREE.Vector3(ww, hh, -ww),
+            new THREE.Vector3(ww, hh, ww),
+            new THREE.Vector3(ww, 0, ww)
+    );
+    var line = new THREE.Line(limitGeometry, limitMaterial);
+    sceneHelpers.add(line);
 
     var camera = editor.camera;
     camera.position.fromArray( editor.config.getKey( 'camera/position' ) );
