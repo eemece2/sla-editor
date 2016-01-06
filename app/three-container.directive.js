@@ -32,7 +32,6 @@ angular.module('three', [])
         var editorStorage = new EditorStorage(editor, storage);
 
         editor.signals.loadingFinished.add( function (state) {
-            console.log('loaded', state);
             if(!state) {
                 addLights();
             }

@@ -9,6 +9,7 @@ angular.module('myApp')
         vm.width = 2000;
     };
 
+    var material = new THREE.MeshLambertMaterial( { color: 0x2288C1, overdraw: 0.5 } );
 
     this.addCube = function() {
         var width = 200;
@@ -19,13 +20,29 @@ angular.module('myApp')
         var heightSegments = 1;
         var depthSegments = 1;
 
-        var material = new THREE.MeshLambertMaterial( { color: 0x2288C1, overdraw: 0.5 } );
         var geometry = new THREE.BoxGeometry( width, height, depth, widthSegments, heightSegments, depthSegments );
         var mesh = new THREE.Mesh( geometry, material );
-        mesh.name = 'Box ';
+        mesh.name = 'Box ' + Math.floor(Math.random()*1000);
 
         vm.editor.addObject( mesh );
         vm.editor.select( mesh );
+    };
+
+    this.addSphere = function() {
+		var radius = 75;
+		var widthSegments = 32;
+		var heightSegments = 16;
+		var phiStart = 0;
+		var phiLength = Math.PI * 2;
+		var thetaStart = 0;
+		var thetaLength = Math.PI;
+
+		var geometry = new THREE.SphereGeometry( radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength );
+		var mesh = new THREE.Mesh( geometry, material );
+		mesh.name = 'Sphere ' + Math.floor(Math.random()*1000);
+
+		vm.editor.addObject( mesh );
+		vm.editor.select( mesh );
     };
 
     this.scale = function() {
@@ -43,5 +60,9 @@ angular.module('myApp')
 		var parent = object.parent;
 		vm.editor.removeObject( object );
 		vm.editor.select( parent );
+    };
+
+    this.objectInfo = function() {
+        console.log(vm.editor.selected);
     };
 });
