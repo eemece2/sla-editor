@@ -736,7 +736,6 @@
 
             if ( intersect ) {
 
-                console.log('onPointHover ', intersect.object.name);  
                 axis = intersect.object.name;
 
             }

@@ -15,9 +15,17 @@
 
 
         <div class="three-block">
-            <three-container fillcontainer="true"></three-container>
+            <three-container editor="ctrl.editor" fillcontainer="true"></three-container>
             <!--[><three-container fillcontainer="false" height="500" width="500"></three-container><]-->
         </div>
+
+        <!--<button ng-click="ctrl.newWidth()">Change</button>-->
+        <button ng-click="ctrl.addCube()">Add Cube</button>
+        <button ng-click="ctrl.delete()">Delete</button>
+        <button ng-click="ctrl.translate()">Translate</button>
+        <button ng-click="ctrl.scale()">Scale</button>
+        <button ng-click="ctrl.theme('dark')">Theme Dark</button>
+        <button ng-click="ctrl.theme('light')">Theme Light</button>
 
         <div style="width:600px;height:300px;">
             <!--<div class="Panel" id="viewport">-->
@@ -26,7 +34,6 @@
             <!--</div>-->
         </div>
 
-        <!--<button ng-click="ctrl.newWidth()">Change</button>-->
 
         <script src="bower_components/angular/angular.min.js"></script>
 

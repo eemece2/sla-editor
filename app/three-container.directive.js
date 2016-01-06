@@ -10,6 +10,7 @@ angular.module('three', [])
             width: '=',
             height: '=',
             fillcontainer: '=',
+            editor: '='
         }
     };
 
@@ -19,7 +20,8 @@ angular.module('three', [])
 
     function threeContainerLink_1(scope, element, attrs) {
 
-        var editor = new Editor();
+        scope.editor = new Editor();
+        var editor = scope.editor;
 
         var viewport = new Viewport( editor, element[0] );
 
@@ -38,6 +40,20 @@ angular.module('three', [])
         $window.addEventListener( 'resize', onWindowResize, false );
 
         onWindowResize();
+
+        ///////////////////////////////////////////////////////////////////////
+        // scene
+        // Lights
+        //var ambient = new THREE.AmbientLight(0x999999);
+        //editor.scene.add(ambient);
+        //var light = new THREE.DirectionalLight(0xefefef, 1.5);
+        //light.position.set(1.5, 1, 1).normalize();
+        //editor.scene.add(light);
+        //// Object selection
+        //editor.signals.objectSelected.add(function(object) {
+            //console.log(object);
+        //});
+        
     }
 
     ///////////////////////////////////////////////////////////////////////////
