@@ -253,7 +253,7 @@ var Viewport = function ( editor, domElement ) {
 
         }
 
-        renderer.setClearColor( clearColor );
+        //renderer.setClearColor( clearColor );
 
         render();
 
@@ -524,8 +524,8 @@ var Viewport = function ( editor, domElement ) {
 
         //}
         type = 'WebGLRenderer';
-        var renderer = new THREE[ type ]( { antialias: antialias } );
-        renderer.setClearColor( clearColor );
+        var renderer = new THREE[ type ]( { antialias: antialias, alpha: true } );
+        //renderer.setClearColor( clearColor );
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.autoClear = false;
         renderer.autoUpdateScene = false;
