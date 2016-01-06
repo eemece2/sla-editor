@@ -988,6 +988,9 @@
             ray.set( camPosition, pointerVector.sub( camPosition ).normalize() );
 
             var intersections = ray.intersectObjects( objects, true );
+            if(intersections[0]) {
+                var a = 1;
+            }
             return intersections[0] ? intersections[0] : false;
 
         }
