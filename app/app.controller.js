@@ -44,9 +44,4 @@ angular.module('myApp')
 		vm.editor.removeObject( object );
 		vm.editor.select( parent );
     };
-
-    this.theme = function(theme) {
-        vm.editor.setTheme( 'css/' + theme + '.css' );
-        vm.editor.config.setKey( 'theme', 'css/' + theme + '.css' );
-    };
 });
