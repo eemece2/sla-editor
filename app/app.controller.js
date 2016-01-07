@@ -65,4 +65,11 @@ angular.module('myApp')
     this.objectInfo = function() {
         console.log(vm.editor.selected);
     };
+
+    this.move = function() {
+        var object = vm.editor.selected;
+        object.translateX(50);
+        //vm.editor.signals.sceneGraphChanged.dispatch();
+		vm.editor.signals.objectChanged.dispatch( object );
+    };
 });
