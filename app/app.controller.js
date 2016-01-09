@@ -37,20 +37,20 @@ angular.module('myApp')
     };
 
     this.addSphere = function() {
-		var radius = 75;
-		var widthSegments = 32;
-		var heightSegments = 16;
-		var phiStart = 0;
-		var phiLength = Math.PI * 2;
-		var thetaStart = 0;
-		var thetaLength = Math.PI;
+        var radius = 75;
+        var widthSegments = 32;
+        var heightSegments = 16;
+        var phiStart = 0;
+        var phiLength = Math.PI * 2;
+        var thetaStart = 0;
+        var thetaLength = Math.PI;
 
-		var geometry = new THREE.SphereGeometry( radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength );
-		var mesh = new THREE.Mesh( geometry, material );
-		mesh.name = 'Sphere ' + Math.floor(Math.random()*1000);
+        var geometry = new THREE.SphereGeometry( radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength );
+        var mesh = new THREE.Mesh( geometry, material );
+        mesh.name = 'Sphere ' + Math.floor(Math.random()*1000);
 
-		vm.editor.addObject( mesh );
-		vm.editor.select( mesh );
+        vm.editor.addObject( mesh );
+        vm.editor.select( mesh );
     };
 
     // Import STL
@@ -74,13 +74,13 @@ angular.module('myApp')
     };
 
     this.delete = function() {
-		var object = vm.editor.selected;
+        var object = vm.editor.selected;
 
-		//if ( confirm( 'Delete ' + object.name + '?' ) === false ) return;
+        //if ( confirm( 'Delete ' + object.name + '?' ) === false ) return;
 
-		var parent = object.parent;
-		vm.editor.removeObject( object );
-		vm.editor.select( parent );
+        var parent = object.parent;
+        vm.editor.removeObject( object );
+        vm.editor.select( parent );
     };
 
     this.objectInfo = function() {
@@ -91,6 +91,6 @@ angular.module('myApp')
         var object = vm.editor.selected;
         object.translateX(50);
         //vm.editor.signals.sceneGraphChanged.dispatch();
-		vm.editor.signals.objectChanged.dispatch( object );
+        vm.editor.signals.objectChanged.dispatch( object );
     };
 });
