@@ -2,6 +2,8 @@ angular.module('myApp')
 .controller('AppController', function() {
     var vm = this;
 
+    vm.editor = new Editor();
+
     vm.width = 800;
     vm.height = 800;
 
@@ -10,6 +12,12 @@ angular.module('myApp')
     };
 
     var material = new THREE.MeshLambertMaterial( { color: 0x2288C1, overdraw: 0.5 } );
+
+    vm.editor.signals.objectAdded.add(function(object) {
+        console.log('objectAdded:', object);
+        object.material = material;
+    });
+
 
     this.addCube = function() {
         var width = 200;
@@ -45,11 +53,24 @@ angular.module('myApp')
 		vm.editor.select( mesh );
     };
 
+    // Import STL
+    var fileInput = document.createElement( 'input' );
+    fileInput.type = 'file';
+    fileInput.addEventListener( 'change', function ( event ) {
+    console.log('change');
+    vm.editor.loader.loadFile( fileInput.files[ 0 ] );
+    this.value = null;
+    });
+    this.addStl = function() {
+        console.log('click');
+        fileInput.click();
+    };
+
     this.scale = function() {
-		vm.editor.signals.transformModeChanged.dispatch('scale');
+        vm.editor.signals.transformModeChanged.dispatch('scale');
     };
     this.translate = function() {
-		vm.editor.signals.transformModeChanged.dispatch('translate');
+        vm.editor.signals.transformModeChanged.dispatch('translate');
     };
 
     this.delete = function() {

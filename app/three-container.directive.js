@@ -20,7 +20,7 @@ angular.module('three', [])
 
     function threeContainerLink_1(scope, element, attrs) {
 
-        scope.editor = new Editor();
+        //scope.editor = new Editor();
         var editor = scope.editor;
 
         var viewport = new Viewport( editor, element[0] );

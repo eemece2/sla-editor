@@ -245,6 +245,10 @@ var Loader = function ( editor ) {
                     editor.addObject( mesh );
                     editor.select( mesh );
 
+                    //console.log('mesh:', mesh);
+                    //var material = new THREE.MeshLambertMaterial( { color: 0x2288C1, overdraw: 0.5 } );
+                    //mesh.material = material;
+                    //editor.signals.objectChanged.dispatch( mesh );
                 }, false );
 
                 if ( reader.readAsBinaryString !== undefined ) {
