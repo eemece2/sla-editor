@@ -35,11 +35,16 @@ angular.module('myApp')
                     geom = object.geometry;
                 }
 
+                // Change Y - Z
                 var m = new THREE.Matrix4();
-                m.identity();
+                m.makeRotationX(Math.PI/2);
+                var m2 = new THREE.Matrix4();
+                m2.makeTranslation(0, -100, -100);
+                var m3 = m.multiply(m2);
 
-                var convertedGeom = angular.copy(geom);
+                var convertedGeom = geom.clone();
                 convertedGeom.applyMatrix(object.matrix);
+                convertedGeom.applyMatrix(m3);
 
                 var z = 100;
                 sliceGeometry(convertedGeom, z);
@@ -69,7 +74,9 @@ angular.module('myApp')
             slicer.addTriangle(triangle);
         });
 
-        var polygons = slicer.slice(z);
+        var limitWidth = 100; // TODO
+        var sliceDistance = z - limitWidth; // TODO
+        var polygons = slicer.slice(sliceDistance);
 
         console.log('polygons', polygons);
 
@@ -98,11 +105,17 @@ angular.module('myApp')
         var extrudeSettings = { amount: 1, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 0, bevelThickness: 0 };
 
         var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
-        //geometry.translate(0, 0, z);
+        // Change Y - Z
+        var m = new THREE.Matrix4();
+        m.makeRotationX(-Math.PI/2);
+        var m2 = new THREE.Matrix4();
+        m2.makeTranslation(0, -100, z); // TODO
+        var m3 = m.multiply(m2);
+
+        geometry.applyMatrix(m3);
 
         var mat = new THREE.MeshLambertMaterial( { color: 0x2288C1, transparent: true, opacity: 0.4 } );
         var mesh = new THREE.Mesh( geometry, mat );
-        mesh.translateZ(z);
         scene.add(mesh);
 
         return mesh;
