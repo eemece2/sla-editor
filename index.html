@@ -11,15 +11,11 @@
         <link rel="stylesheet" type="text/css" href="css/editor.css">
     </head>
     <body ng-app="myApp" ng-controller="AppController as ctrl">
-    <!--<body ontouchstart="">-->
-
 
         <div class="three-block">
             <three-container editor="ctrl.editor" fillcontainer="true"></three-container>
-            <!--[><three-container fillcontainer="false" height="500" width="500"></three-container><]-->
         </div>
 
-        <!--<button ng-click="ctrl.newWidth()">Change</button>-->
         <button ng-click="ctrl.addStl()">Add STL</button>
         <button ng-click="ctrl.addCube()">Add Cube</button>
         <button ng-click="ctrl.addSphere()">Add Sphere</button>
@@ -31,13 +27,6 @@
         <button ng-click="ctrl.objectInfo()">Object info</button>
         <button ng-click="ctrl.move()">Move</button>
         <button ng-click="ctrl.doSlice()">Slice</button>
-
-        <div style="width:600px;height:300px;">
-            <!--<div class="Panel" id="viewport">-->
-                <!--<div class="Panel" id="info" style="left:10px;botom:10px">-->
-                <!--</div>-->
-            <!--</div>-->
-        </div>
 
 
         <script src="bower_components/angular/angular.min.js"></script>
@@ -57,8 +46,6 @@
 
         <script src="./bower_components/threejs-buffergeometry-to-geometry/BufferGeometryToGeometry.js"></script>
         <script src="js/slicer.js"></script>
-
-        <!--<script src="js/App.js"></script>-->
 
         <script src="app/three-container.directive.js"></script>
         <script src="app/app.js"></script>

@@ -6,17 +6,9 @@ var Viewport = function ( editor, domElement ) {
 
     var signals = editor.signals;
 
-    //var container = new UI.Panel();
-    //container.setId( 'viewport' );
-    //container.setPosition( 'absolute' );
-    //container.add( new Viewport.Info( editor ) );
     var container = {
         dom: domElement
-        //dom: document.getElementById('viewport')
     };
-    //var info = new Viewport.Info( editor );
-    //container.dom.appendChild( info.dom );
-
 
     var scene = editor.scene;
     var sceneHelpers = editor.sceneHelpers;
@@ -24,7 +16,6 @@ var Viewport = function ( editor, domElement ) {
     var objects = [];
 
     // helpers
-
     var limits = {
         width: 200,
         height: 200
@@ -41,8 +32,8 @@ var Viewport = function ( editor, domElement ) {
 
     // Axis
     renderAxis(limits.width / 2);
-    //
 
+    // Selection box
     var selectionBox = new THREE.BoxHelper();
     selectionBox.material.depthTest = false;
     selectionBox.material.transparent = true;
@@ -283,19 +274,6 @@ var Viewport = function ( editor, domElement ) {
         transformControls.setSpace( space );
 
     } );
-
-    //signals.rendererChanged.add( function ( type, antialias ) {
-
-        //container.dom.removeChild( renderer.domElement );
-
-        //renderer = createRenderer( type, antialias );
-        //renderer.setSize( container.dom.offsetWidth, container.dom.offsetHeight );
-
-        //container.dom.appendChild( renderer.domElement );
-
-        //render();
-
-    //} );
 
     signals.sceneGraphChanged.add( function () {
 
@@ -545,9 +523,6 @@ var Viewport = function ( editor, domElement ) {
     var renderer = createRenderer( editor.config.getKey( 'project/renderer' ), editor.config.getKey( 'project/renderer/antialias' ) );
     container.dom.appendChild( renderer.domElement );
 
-    //animate();
-
-    //
 
     function updateMaterials() {
 
@@ -587,34 +562,6 @@ var Viewport = function ( editor, domElement ) {
 
     }
 
-    //function animate() {
-
-        //requestAnimationFrame( animate );
-
-        //// animations
-
-        //if ( THREE.AnimationHandler.animations.length > 0 ) {
-
-            //THREE.AnimationHandler.update( 0.016 );
-
-            //for ( var i = 0, l = sceneHelpers.children.length; i < l; i ++ ) {
-
-                //var helper = sceneHelpers.children[ i ];
-
-                //if ( helper instanceof THREE.SkeletonHelper ) {
-
-                    //helper.update();
-
-                //}
-
-            //}
-
-            //render();
-
-        //}
-
-    //}
-    
     function renderLimitBox(limits, scene) {
         var limitGeometry = new THREE.Geometry();
         var limitMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
@@ -696,12 +643,7 @@ var Viewport = function ( editor, domElement ) {
         renderer.clear();
         renderer.render( scene, camera );
 
-        //if ( renderer instanceof THREE.RaytracingRenderer === false ) {
-
-            renderer.render( sceneHelpers, camera );
-
-        //}
-
+        renderer.render( sceneHelpers, camera );
     }
 
     return container;
