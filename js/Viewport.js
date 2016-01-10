@@ -33,44 +33,14 @@ var Viewport = function ( editor, domElement ) {
     sceneHelpers.add( grid );
 
     // limits box
-    var limitGeometry = new THREE.Geometry();
-    var limitMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
-    var ww = limits.width / 2;
-    var hh = limits.height;
-    limitGeometry.vertices.push(
-            new THREE.Vector3(ww, 0, ww),
-            new THREE.Vector3(ww, hh, ww),
-            new THREE.Vector3(-ww, hh, ww),
-            new THREE.Vector3(-ww, 0, ww)
-    );
-    limitGeometry.vertices.push(
-            new THREE.Vector3(-ww, 0, ww),
-            new THREE.Vector3(-ww, hh, ww),
-            new THREE.Vector3(-ww, hh, -ww),
-            new THREE.Vector3(-ww, 0, -ww)
-    );
-    limitGeometry.vertices.push(
-            new THREE.Vector3(-ww, 0, -ww),
-            new THREE.Vector3(-ww, hh, -ww),
-            new THREE.Vector3(ww, hh, -ww),
-            new THREE.Vector3(ww, 0, -ww)
-    );
-    limitGeometry.vertices.push(
-            new THREE.Vector3(ww, 0, -ww),
-            new THREE.Vector3(ww, hh, -ww),
-            new THREE.Vector3(ww, hh, ww),
-            new THREE.Vector3(ww, 0, ww)
-    );
-    var line = new THREE.Line(limitGeometry, limitMaterial);
-    sceneHelpers.add(line);
+    renderLimitBox(limits, sceneHelpers);
 
     var camera = editor.camera;
     camera.position.fromArray( editor.config.getKey( 'camera/position' ) );
     camera.lookAt( new THREE.Vector3().fromArray( editor.config.getKey( 'camera/target' ) ) );
 
     // Axis
-    var axisHelper = new THREE.AxisHelper( ww + 20 );
-    sceneHelpers.add( axisHelper );
+    renderAxis(limits.width / 2);
     //
 
     var selectionBox = new THREE.BoxHelper();
@@ -644,6 +614,79 @@ var Viewport = function ( editor, domElement ) {
         //}
 
     //}
+    
+    function renderLimitBox(limits, scene) {
+        var limitGeometry = new THREE.Geometry();
+        var limitMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
+        var ww = limits.width / 2;
+        var hh = limits.height;
+        limitGeometry.vertices.push(
+                new THREE.Vector3(ww, 0, ww),
+                new THREE.Vector3(ww, hh, ww),
+                new THREE.Vector3(-ww, hh, ww),
+                new THREE.Vector3(-ww, 0, ww)
+        );
+        limitGeometry.vertices.push(
+                new THREE.Vector3(-ww, 0, ww),
+                new THREE.Vector3(-ww, hh, ww),
+                new THREE.Vector3(-ww, hh, -ww),
+                new THREE.Vector3(-ww, 0, -ww)
+        );
+        limitGeometry.vertices.push(
+                new THREE.Vector3(-ww, 0, -ww),
+                new THREE.Vector3(-ww, hh, -ww),
+                new THREE.Vector3(ww, hh, -ww),
+                new THREE.Vector3(ww, 0, -ww)
+        );
+        limitGeometry.vertices.push(
+                new THREE.Vector3(ww, 0, -ww),
+                new THREE.Vector3(ww, hh, -ww),
+                new THREE.Vector3(ww, hh, ww),
+                new THREE.Vector3(ww, 0, ww)
+        );
+        var line = new THREE.Line(limitGeometry, limitMaterial);
+        scene.add(line);
+    }
+
+    function renderAxis(ww) {
+        var axisHelper = new THREE.AxisHelper( ww + 20 );
+        sceneHelpers.add( axisHelper );
+        // Axis texts
+        var textMaterial = new THREE.MeshLambertMaterial( { color: 0x2288C1, overdraw: 0.5 } );
+        var textSize = 10;
+        var textHeight = 1;
+        // X
+        var textAxisX = new THREE.TextGeometry( 'x', {
+            size: textSize,
+            height: textHeight,
+            font: "helvetiker"
+        });
+        var textX = new THREE.Mesh( textAxisX, textMaterial );
+        var gap = 10;
+        textX.translateX(ww + gap);
+        textX.rotateX(Math.PI/2);
+        sceneHelpers.add(textX);
+        // Y
+        var textAxisY = new THREE.TextGeometry( 'y', {
+            size: textSize,
+            height: textHeight,
+            font: "helvetiker"
+        });
+        var textY = new THREE.Mesh( textAxisY, textMaterial );
+        textY.translateY(ww + gap);
+        sceneHelpers.add(textY);
+        // Z
+        var textAxisZ = new THREE.TextGeometry( 'z', {
+            size: textSize,
+            height: textHeight,
+            font: "helvetiker"
+        });
+        var textZ = new THREE.Mesh( textAxisZ, textMaterial );
+        textZ.translateZ(ww + gap);
+        textZ.rotateY(-Math.PI/2);
+        textZ.rotateX(-Math.PI/2);
+        sceneHelpers.add(textZ);
+    }
 
     function render() {
 
