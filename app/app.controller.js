@@ -157,6 +157,22 @@ angular.module('myApp')
         vm.editor.select( mesh );
     };
 
+    this.addCylinder = function() {
+		var radiusTop = 20;
+		var radiusBottom = 20;
+		var height = 100;
+		var radiusSegments = 32;
+		var heightSegments = 1;
+		var openEnded = false;
+
+		var geometry = new THREE.CylinderGeometry( radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded );
+		var mesh = new THREE.Mesh( geometry, new THREE.MeshPhongMaterial() );
+		mesh.name = 'Cylinder ' + Math.floor(Math.random()*1000);
+
+		vm.editor.addObject( mesh );
+		vm.editor.select( mesh );
+    };
+
     // Import STL
     var fileInput = document.createElement( 'input' );
     fileInput.type = 'file';
