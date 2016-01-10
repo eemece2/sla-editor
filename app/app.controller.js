@@ -14,10 +14,101 @@ angular.module('myApp')
     var material = new THREE.MeshLambertMaterial( { color: 0x2288C1, overdraw: 0.5 } );
 
     vm.editor.signals.objectAdded.add(function(object) {
-        console.log('objectAdded:', object);
         object.material = material;
     });
 
+    var shapes = [];
+
+    this.doSlice = function() {
+        shapes.forEach(function(shape) {
+            vm.editor.sceneHelpers.remove(shape);
+        });
+        shapes = [];
+
+        var objects = vm.editor.scene.children;
+        objects.forEach(function(object) {
+            if(object.type == 'Mesh') {
+                var geom;
+                if(object.geometry.type == 'BufferGeometry') {
+                    geom = object.geometry.toGeometry();
+                } else {
+                    geom = object.geometry;
+                }
+
+                var m = new THREE.Matrix4();
+                m.identity();
+
+                var convertedGeom = angular.copy(geom);
+                convertedGeom.applyMatrix(object.matrix);
+
+                var z = 100;
+                sliceGeometry(convertedGeom, z);
+            }
+        });
+    };
+
+    function sliceGeometry(geometry, z) {
+        var vertices = geometry.vertices;
+        // Create triangles
+        var triangles = [];
+        geometry.faces.forEach(function(face) {
+            var vertA = vertices[face.a];
+            var vertB = vertices[face.b];
+            var vertC = vertices[face.c];
+            triangles.push([
+                [vertA.x, vertA.y, vertA.z],
+                [vertB.x, vertB.y, vertB.z],
+                [vertC.x, vertC.y, vertC.z]
+            ]);
+        });
+
+        var slicer = createSlicer();
+
+        triangles.forEach(function(triangle) {
+            //console.log('triangle', triangle);
+            slicer.addTriangle(triangle);
+        });
+
+        var polygons = slicer.slice(z);
+
+        console.log('polygons', polygons);
+
+        drawSlice(polygons, z);
+    }
+
+    function drawSlice(polygons, z) {
+
+        polygons.forEach(function(polygon) {
+            var shape = addShape(polygon.points, z, vm.editor.sceneHelpers);
+            shapes.push(shape);
+        });
+
+        vm.editor.signals.sceneGraphChanged.dispatch();
+    }
+
+    function addShape(points, z, scene) {
+        var shape = new THREE.Shape();
+
+        shape.moveTo(points[0].x, points[0].y);
+        for(var i = 1; i < points.length; i++) {
+            shape.lineTo(points[i].x, points[i].y);
+        }
+        shape.lineTo(points[0].x, points[0].y);
+
+        var extrudeSettings = { amount: 1, bevelEnabled: false, bevelSegments: 2, steps: 2, bevelSize: 0, bevelThickness: 0 };
+
+        var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
+        //geometry.translate(0, 0, z);
+
+        var mat = new THREE.MeshLambertMaterial( { color: 0x2288C1, transparent: true, opacity: 0.4 } );
+        var mesh = new THREE.Mesh( geometry, mat );
+        mesh.translateZ(z);
+        scene.add(mesh);
+
+        return mesh;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
 
     this.addCube = function() {
         var width = 200;
@@ -71,6 +162,9 @@ angular.module('myApp')
     };
     this.translate = function() {
         vm.editor.signals.transformModeChanged.dispatch('translate');
+    };
+    this.rotate = function() {
+        vm.editor.signals.transformModeChanged.dispatch('rotate');
     };
 
     this.delete = function() {
