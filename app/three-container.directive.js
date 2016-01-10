@@ -56,6 +56,12 @@ angular.module('three', [])
             var light = new THREE.DirectionalLight(0xefefef, 1.5);
             light.position.set(1.5, 1, 1).normalize();
             editor.scene.add(light);
+
+            var ambientHelpers = new THREE.AmbientLight(0x999999);
+            editor.sceneHelpers.add(ambientHelpers);
+            var lightHelpers = new THREE.DirectionalLight(0xefefef, 1.5);
+            lightHelpers.position.set(1.5, 1, 1).normalize();
+            editor.sceneHelpers.add(lightHelpers);
         }
         //// Object selection
         //editor.signals.objectSelected.add(function(object) {
