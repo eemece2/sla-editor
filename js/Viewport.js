@@ -68,6 +68,9 @@ var Viewport = function ( editor, domElement ) {
     camera.position.fromArray( editor.config.getKey( 'camera/position' ) );
     camera.lookAt( new THREE.Vector3().fromArray( editor.config.getKey( 'camera/target' ) ) );
 
+    // Axis
+    var axisHelper = new THREE.AxisHelper( ww + 20 );
+    sceneHelpers.add( axisHelper );
     //
 
     var selectionBox = new THREE.BoxHelper();
