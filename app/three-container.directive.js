@@ -1,7 +1,7 @@
 
 angular.module('three', [])
 
-.directive('threeContainer', function($window) {
+.directive('threeContainer', function($window, $timeout) {
     var directive = {
         link: threeContainerLink,
         replace: true,
@@ -40,7 +40,9 @@ angular.module('three', [])
 
         $window.addEventListener( 'resize', onWindowResize, false );
 
-        onWindowResize();
+        $timeout(function() {
+            onWindowResize();
+        });
 
         ///////////////////////////////////////////////////////////////////////
         // scene

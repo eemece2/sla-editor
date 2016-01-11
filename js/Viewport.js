@@ -463,10 +463,10 @@ var Viewport = function ( editor, domElement ) {
 
     signals.windowResize.add( function () {
 
-        camera.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
+        camera.aspect = container.dom.offsetWidth / container.dom.parentNode.parentNode.offsetHeight;
         camera.updateProjectionMatrix();
 
-        renderer.setSize( container.dom.offsetWidth, container.dom.offsetHeight );
+        renderer.setSize( container.dom.offsetWidth, container.dom.parentNode.parentNode.offsetHeight );
 
         render();
 

@@ -7,6 +7,9 @@ angular.module('myApp')
     vm.width = 800;
     vm.height = 800;
 
+    vm.mode = 'translate';
+    vm.zSlice = 100;
+
     this.newWidth = function() {
         vm.width = 2000;
     };
@@ -46,8 +49,8 @@ angular.module('myApp')
                 convertedGeom.applyMatrix(object.matrix);
                 convertedGeom.applyMatrix(m3);
 
-                var z = 100;
-                sliceGeometry(convertedGeom, z);
+                //var z = 100;
+                sliceGeometry(convertedGeom, vm.zSlice);
             }
         });
     };
@@ -186,14 +189,18 @@ angular.module('myApp')
         fileInput.click();
     };
 
-    this.scale = function() {
-        vm.editor.signals.transformModeChanged.dispatch('scale');
-    };
-    this.translate = function() {
-        vm.editor.signals.transformModeChanged.dispatch('translate');
-    };
-    this.rotate = function() {
-        vm.editor.signals.transformModeChanged.dispatch('rotate');
+    //this.scale = function() {
+        //vm.editor.signals.transformModeChanged.dispatch('scale');
+    //};
+    //this.translate = function() {
+        //vm.editor.signals.transformModeChanged.dispatch('translate');
+    //};
+    //this.rotate = function() {
+        //vm.editor.signals.transformModeChanged.dispatch('rotate');
+    //};
+
+    this.modeChanged = function(mode) {
+        vm.editor.signals.transformModeChanged.dispatch(mode);
     };
 
     this.delete = function() {
