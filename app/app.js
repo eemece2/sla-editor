@@ -3,5 +3,6 @@ angular.module('myApp', [
     'vAccordion',
     'three',
     'editorSidebar',
-    'editorToolbar'
+    'editorToolbar',
+    'slicer'
 ]);
