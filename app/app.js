@@ -4,5 +4,6 @@ angular.module('myApp', [
     'three',
     'editorSidebar',
     'editorToolbar',
-    'slicer'
+    'slicer',
+    'editor'
 ]);

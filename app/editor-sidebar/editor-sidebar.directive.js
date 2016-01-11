@@ -19,7 +19,7 @@
         };
     }
 
-    function editorSidebarController(slicerService) {
+    function editorSidebarController(editorService, slicerService) {
         var vm = this;
 
         vm.mode = 'translate';
@@ -27,58 +27,17 @@
 
         // add cube action
         this.addCube = function() {
-            // TODO: params to config service
-            var width = 200;
-            var height = 20;
-            var depth = 200;
-
-            var widthSegments = 1;
-            var heightSegments = 1;
-            var depthSegments = 1;
-
-            var geometry = new THREE.BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments);
-            var mesh = new THREE.Mesh(geometry, vm.editor.defaultMaterial);
-            mesh.name = 'Box ' + Math.floor(Math.random()*1000);
-
-            vm.editor.addObject(mesh);
-            vm.editor.select(mesh);
+            editorService.addCube(vm.editor);
         };
 
         // add spehere action
         this.addSphere = function() {
-            // TODO: params to config service
-            var radius = 75;
-            var widthSegments = 32;
-            var heightSegments = 16;
-            var phiStart = 0;
-            var phiLength = Math.PI * 2;
-            var thetaStart = 0;
-            var thetaLength = Math.PI;
-
-            var geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
-            var mesh = new THREE.Mesh(geometry, vm.editor.defaultMaterial);
-            mesh.name = 'Sphere ' + Math.floor(Math.random()*1000);
-
-            vm.editor.addObject(mesh);
-            vm.editor.select(mesh);
+            editorService.addSphere(vm.editor);
         };
 
         // add cylinder action
         this.addCylinder = function() {
-            // TODO: params to config service
-            var radiusTop = 20;
-            var radiusBottom = 20;
-            var height = 100;
-            var radiusSegments = 32;
-            var heightSegments = 1;
-            var openEnded = false;
-
-            var geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded);
-            var mesh = new THREE.Mesh(geometry, vm.editor.defaultMaterial);
-            mesh.name = 'Cylinder ' + Math.floor(Math.random()*1000);
-
-            vm.editor.addObject(mesh);
-            vm.editor.select(mesh);
+            editorService.addCylinder(vm.editor);
         };
 
         // delete action
