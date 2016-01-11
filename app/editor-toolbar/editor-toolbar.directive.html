@@ -1,10 +1,36 @@
 <div>
-    <md-toolbar layout="row">
+    <md-toolbar layout="row" class="md-menu-toolbar">
         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="Settings">
-                <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-            </md-button>
+            <!--<md-button class="md-icon-button" aria-label="Settings">-->
+                <!--<md-icon md-svg-icon="img/icons/menu.svg"></md-icon>-->
+            <!--</md-button>-->
             <h1>SLA-Editor</h1>
+
+            <md-menu-bar>
+                <md-menu>
+                    <button ng-click="$mdOpenMenu()">
+                        Add
+                    </button>
+                    <md-menu-content>
+                        <md-menu-item>
+                            <md-button ng-click="toolbar.addCube()">
+                                Cube
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="toolbar.addSphere()">
+                                Sphere
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="toolbar.addCylinder()">
+                                Cylinder
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </md-menu-bar>
+
             <span flex></span>
 
             <md-button class="md-icon-button" aria-label="More">

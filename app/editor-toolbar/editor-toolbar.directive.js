@@ -19,8 +19,22 @@
         };
     }
 
-    function editorToolbarController() {
+    function editorToolbarController(editorService) {
         var vm = this;
 
+        // add cube action
+        this.addCube = function() {
+            editorService.addCube(vm.editor);
+        };
+
+        // add spehere action
+        this.addSphere = function() {
+            editorService.addSphere(vm.editor);
+        };
+
+        // add cylinder action
+        this.addCylinder = function() {
+            editorService.addCylinder(vm.editor);
+        };
     }
 })();
