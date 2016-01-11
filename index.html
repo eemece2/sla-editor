@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" href="css/editor.css">
 
         <link rel="stylesheet" href="./bower_components/angular-material/angular-material.min.css">
+        <link rel="stylesheet" href="./bower_components/v-accordion/dist/v-accordion.min.css">
     </head>
     <body layout="column" ng-app="myApp" ng-controller="AppController as ctrl">
 
@@ -41,54 +42,99 @@
 
             <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="right" md-is-locked-open="$mdMedia('gt-sm')">
 
-                <!--<md-list>-->
-                    <!--<md-list-item>-->
-                        <!--<md-item-content>-->
-                            <!--<md-button ng-link="main()">Home</md-button>-->
-                            <md-button ng-click="ctrl.addStl()">
-                                <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
-                                Add STL
-                            </md-button>
-                            <md-button ng-click="ctrl.addCube()">
-                                <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
-                                Add Cube
-                            </md-button>
-                            <md-button ng-click="ctrl.addSphere()">
-                                <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
-                                Add Sphere
-                            </md-button>
-                            <md-button ng-click="ctrl.addCylinder()">
-                                <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
-                                Add Cylinder
-                            </md-button>
-                            <md-button ng-click="ctrl.delete()">
-                                <md-icon md-svg-icon="img/icons/delete.svg"></md-icon>
-                                Delete
-                            </md-button>
+                <md-content layout-padding>
+                <v-accordion class="vAccordion--default" multiple>
+
+                    <v-pane expanded>
+                        <v-pane-header>
+                            Add object
+                        </v-pane-header>
+
+                        <v-pane-content>
+                            <md-list>
+                                <md-list-item>
+                                    <md-button ng-click="ctrl.addStl()">
+                                        <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
+                                        Add STL
+                                    </md-button>
+                                </md-list-item>
+                                <md-list-item>
+                                    <md-button ng-click="ctrl.addCube()">
+                                        <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
+                                        Add Cube
+                                    </md-button>
+                                </md-list-item>
+                                <md-list-item>
+                                    <md-button ng-click="ctrl.addSphere()">
+                                        <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
+                                        Add Sphere
+                                    </md-button>
+                                </md-list-item>
+                                <md-list-item>
+                                    <md-button ng-click="ctrl.addCylinder()">
+                                        <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
+                                        Add Cylinder
+                                    </md-button>
+                                </md-list-item>
+                            </md-list>
+                        </v-pane-content>
+                    </v-pane>
+
+                    <v-pane>
+                        <v-pane-header>
+                            Edit
+                        </v-pane-header>
+
+                        <v-pane-content>
                             <div layout-padding>
-                                <h3>Mode</h3>
+                                <md-button ng-click="ctrl.delete()">
+                                    <md-icon md-svg-icon="img/icons/delete.svg"></md-icon>
+                                    Delete
+                                </md-button>
+                            </div>
+                        </v-pane-content>
+                    </v-pane>
+
+                    <v-pane>
+                        <v-pane-header>
+                            Transform Mode
+                        </v-pane-header>
+
+                        <v-pane-content>
+                            <div layout-padding>
                                 <md-radio-group ng-model="ctrl.mode" ng-change="ctrl.modeChanged(ctrl.mode)">
                                     <md-radio-button value="translate" class="md-primary">Translate</md-radio-button>
                                     <md-radio-button value="scale">Scale</md-radio-button>
                                     <md-radio-button value="rotate">Rotate</md-radio-button>
                                 </md-radio-group>
                             </div>
-                            <!--<md-button ng-click="ctrl.objectInfo()">Object info</md-button>-->
-                            <!--<md-button ng-click="ctrl.move()">Move</md-button>-->
+                        </v-pane-content>
+                    </v-pane>
+
+                    <v-pane>
+                        <v-pane-header>
+                            Slicer
+                        </v-pane-header>
+
+                        <v-pane-content>
                             <md-content layout-padding>
-                                <h3>Slice {{ctrl.zSlice}}</h3>
                                 <div layout>
                                     <div flex="10" layout layout-align="center center">
                                         <span class="md-body-1">Z</span>
                                     </div>
                                     <md-slider flex min="0" max="200" ng-model="ctrl.zSlice" aria-label="red" id="red-slider" class>
                                     </md-slider>
+                                    <div flex="10" layout layout-align="center center">
+                                        {{ctrl.zSlice}}
+                                    </div>
                                 </div>
                                 <md-button ng-click="ctrl.doSlice()" class="md-raised">Slice</md-button>
                             </md-content>
-                        <!--</md-item-content>-->
-                    <!--</md-list-item>-->
-                <!--</md-list>-->
+                        </v-pane-content>
+                    </v-pane>
+
+                </v-accordion>
+                </md-content>
 
             </md-sidenav>
         </div>
@@ -101,6 +147,7 @@
         <script src="./bower_components/angular-aria/angular-aria.min.js"></script>
         <script src="./bower_components/angular-messages/angular-messages.min.js"></script>
         <script src="./bower_components/angular-material/angular-material.min.js"></script>
+        <script src="./bower_components/v-accordion/dist/v-accordion.min.js"></script>
 
         <script src="lib/three.min.js"></script>
         <script src="fonts/helvetiker_regular.typeface.js"></script>

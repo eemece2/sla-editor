@@ -1,1 +1,1 @@
-angular.module('myApp', ['ngMaterial', 'three']);
+angular.module('myApp', ['ngMaterial', 'vAccordion', 'three']);
