@@ -9,7 +9,8 @@
         return {
             addCube: addCube,
             addSphere: addSphere,
-            addCylinder: addCylinder
+            addCylinder: addCylinder,
+            remove: remove
         };
 
         ///////////////////////////////////////////////////////////////////////
@@ -65,6 +66,15 @@
 
             editor.addObject(mesh);
             editor.select(mesh);
+        }
+
+        function remove(editor) {
+            console.log('remove');
+            var object = editor.selected;
+
+            var parent = object.parent;
+            editor.removeObject(object);
+            editor.select(parent);
         }
     }
 })();

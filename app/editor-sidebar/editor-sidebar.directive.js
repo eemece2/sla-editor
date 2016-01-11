@@ -40,15 +40,9 @@
             editorService.addCylinder(vm.editor);
         };
 
-        // delete action
-        this.delete = function() {
-            var object = vm.editor.selected;
-
-            //if ( confirm( 'Delete ' + object.name + '?' ) === false ) return;
-
-            var parent = object.parent;
-            vm.editor.removeObject(object);
-            vm.editor.select(parent);
+        // remove action
+        this.remove = function() {
+            editorService.remove(vm.editor);
         };
 
         // modeChanged

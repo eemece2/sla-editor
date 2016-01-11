@@ -36,5 +36,9 @@
         this.addCylinder = function() {
             editorService.addCylinder(vm.editor);
         };
+
+        this.remove = function() {
+            editorService.remove(vm.editor);
+        };
     }
 })();
