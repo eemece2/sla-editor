@@ -2,4 +2,6 @@ angular.module('myApp', [
     'ngMaterial',
     'vAccordion',
     'three',
-    'editorSidebar']);
+    'editorSidebar',
+    'editorToolbar'
+]);
