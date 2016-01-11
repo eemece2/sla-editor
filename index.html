@@ -40,106 +40,9 @@
 
             </div>
 
-            <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="right" md-is-locked-open="$mdMedia('gt-sm')">
+            <editor-sidebar editor="ctrl.editor"></editor-sidebar>
 
-                <md-content layout-padding>
-                <v-accordion class="vAccordion--default" multiple>
-
-                    <v-pane expanded>
-                        <v-pane-header>
-                            Add object
-                        </v-pane-header>
-
-                        <v-pane-content>
-                            <md-list>
-                                <md-list-item>
-                                    <md-button ng-click="ctrl.addStl()">
-                                        <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
-                                        Add STL
-                                    </md-button>
-                                </md-list-item>
-                                <md-list-item>
-                                    <md-button ng-click="ctrl.addCube()">
-                                        <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
-                                        Add Cube
-                                    </md-button>
-                                </md-list-item>
-                                <md-list-item>
-                                    <md-button ng-click="ctrl.addSphere()">
-                                        <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
-                                        Add Sphere
-                                    </md-button>
-                                </md-list-item>
-                                <md-list-item>
-                                    <md-button ng-click="ctrl.addCylinder()">
-                                        <md-icon md-svg-icon="img/icons/add.svg"></md-icon>
-                                        Add Cylinder
-                                    </md-button>
-                                </md-list-item>
-                            </md-list>
-                        </v-pane-content>
-                    </v-pane>
-
-                    <v-pane>
-                        <v-pane-header>
-                            Edit
-                        </v-pane-header>
-
-                        <v-pane-content>
-                            <div layout-padding>
-                                <md-button ng-click="ctrl.delete()">
-                                    <md-icon md-svg-icon="img/icons/delete.svg"></md-icon>
-                                    Delete
-                                </md-button>
-                            </div>
-                        </v-pane-content>
-                    </v-pane>
-
-                    <v-pane>
-                        <v-pane-header>
-                            Transform Mode
-                        </v-pane-header>
-
-                        <v-pane-content>
-                            <div layout-padding>
-                                <md-radio-group ng-model="ctrl.mode" ng-change="ctrl.modeChanged(ctrl.mode)">
-                                    <md-radio-button value="translate" class="md-primary">Translate</md-radio-button>
-                                    <md-radio-button value="scale">Scale</md-radio-button>
-                                    <md-radio-button value="rotate">Rotate</md-radio-button>
-                                </md-radio-group>
-                            </div>
-                        </v-pane-content>
-                    </v-pane>
-
-                    <v-pane>
-                        <v-pane-header>
-                            Slicer
-                        </v-pane-header>
-
-                        <v-pane-content>
-                            <md-content layout-padding>
-                                <div layout>
-                                    <div flex="10" layout layout-align="center center">
-                                        <span class="md-body-1">Z</span>
-                                    </div>
-                                    <md-slider flex min="0" max="200" ng-model="ctrl.zSlice" aria-label="red" id="red-slider" class>
-                                    </md-slider>
-                                    <div flex="10" layout layout-align="center center">
-                                        {{ctrl.zSlice}}
-                                    </div>
-                                </div>
-                                <md-button ng-click="ctrl.doSlice()" class="md-raised">Slice</md-button>
-                            </md-content>
-                        </v-pane-content>
-                    </v-pane>
-
-                </v-accordion>
-                </md-content>
-
-            </md-sidenav>
         </div>
-
-
 
 
         <script src="bower_components/angular/angular.min.js"></script>
@@ -168,5 +71,7 @@
         <script src="app/three-container.directive.js"></script>
         <script src="app/app.js"></script>
         <script src="app/app.controller.js"></script>
+        <script src="app/editor-sidebar/editor-sidebar.module.js"></script>
+        <script src="app/editor-sidebar/editor-sidebar.directive.js"></script>
     </body>
 </html>

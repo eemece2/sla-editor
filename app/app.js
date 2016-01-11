@@ -1,1 +1,5 @@
-angular.module('myApp', ['ngMaterial', 'vAccordion', 'three']);
+angular.module('myApp', [
+    'ngMaterial',
+    'vAccordion',
+    'three',
+    'editorSidebar']);
