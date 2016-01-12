@@ -24,6 +24,8 @@
 
         vm.mode = 'translate';
         vm.zSlice = editorService.getLimits().height;
+        vm.sceneAlpha = 100;
+        vm.sceneVisible = true;
 
         // add cube action
         this.addCube = function() {
@@ -76,5 +78,13 @@
             editorService.moveSlicePlane(zSlice);
         };
 
+        this.sceneAlphaChanged = function(sceneAlpha) {
+            editorService.changeSceneAlpha(sceneAlpha);
+        };
+
+        this.toogleSceneVisible = function() {
+            vm.sceneVisible = !vm.sceneVisible;
+            editorService.setSceneVisible(vm.sceneVisible);
+        };
     }
 })();

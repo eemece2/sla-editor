@@ -4,6 +4,36 @@
         <md-content layout-padding>
         <v-accordion class="vAccordion--default" multiple>
 
+            <v-pane>
+                <v-pane-header>
+                    Scene
+                </v-pane-header>
+
+                <v-pane-content>
+                    <md-content layout-padding>
+                        <div layout>
+                            <div flex="20" layout layout-align="center center">
+                                <span class="md-body-1">Alpha</span>
+                            </div>
+                            <md-slider flex min="0" max="100" ng-model="sidebar.sceneAlpha" ng-change="sidebar.sceneAlphaChanged(sidebar.sceneAlpha)" aria-label="red" id="red-slider" class>
+                            </md-slider>
+                            <div flex="20" layout layout-align="center center">
+                                {{sidebar.sceneAlpha}}
+                            </div>
+                        </div>
+                        <div layout>
+                            <div flex="flex" layout layout-align="center center">
+                                <span class="md-body-1">Visible</span>
+                            </div>
+                            <div flex></div>
+                            <md-button flex="20" ng-click="sidebar.toogleSceneVisible()">
+                                <md-icon md-svg-icon="img/icons/view.svg"></md-icon>
+                            </md-button>
+                        </div>
+                    </md-content>
+                </v-pane-content>
+            </v-pane>
+
             <v-pane expanded>
                 <v-pane-header>
                     Add object

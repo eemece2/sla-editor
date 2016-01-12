@@ -9,12 +9,15 @@
             width: 200,
             height: 200
         };
+        var material; // Default material
         var gridStep = 10;
         var slicePlane; // Mesh
 
         return {
             getEditor: getEditor,
             getLimits: getLimits,
+            changeSceneAlpha: changeSceneAlpha,
+            setSceneVisible: setSceneVisible,
             addCube: addCube,
             addSphere: addSphere,
             addCylinder: addCylinder,
@@ -41,10 +44,27 @@
             renderAxis(limits.width / 2, editor.sceneHelpers);
             // Grid
             renderGrid(limits.width / 2, gridStep, editor.sceneHelpers);
+
+            material = new THREE.MeshLambertMaterial( { color: 0x2288C1, transparent: true } );
+
+            // TODO: Move
+            editor.signals.objectAdded.add(function(object) {
+                object.material = material;
+            });
         }
 
         function getLimits() {
             return limits;
+        }
+
+        function changeSceneAlpha(alpha) {
+            material.opacity = alpha / 100;
+            editor.signals.sceneGraphChanged.dispatch();
+        }
+
+        function setSceneVisible(sceneVisible) {
+            material.visible = sceneVisible;
+            editor.signals.sceneGraphChanged.dispatch();
         }
 
         function addCube(editor) {
@@ -58,7 +78,7 @@
             var depthSegments = 1;
 
             var geometry = new THREE.BoxGeometry(width, height, depth, widthSegments, heightSegments, depthSegments);
-            var mesh = new THREE.Mesh(geometry, editor.defaultMaterial);
+            var mesh = new THREE.Mesh(geometry, material);
             mesh.name = 'Box ' + Math.floor(Math.random()*1000);
 
             editor.addObject(mesh);
@@ -76,7 +96,7 @@
             var thetaLength = Math.PI;
 
             var geometry = new THREE.SphereGeometry(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength);
-            var mesh = new THREE.Mesh(geometry, editor.defaultMaterial);
+            var mesh = new THREE.Mesh(geometry, material);
             mesh.name = 'Sphere ' + Math.floor(Math.random()*1000);
 
             editor.addObject(mesh);
@@ -93,7 +113,7 @@
             var openEnded = false;
 
             var geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded);
-            var mesh = new THREE.Mesh(geometry, editor.defaultMaterial);
+            var mesh = new THREE.Mesh(geometry, material);
             mesh.name = 'Cylinder ' + Math.floor(Math.random()*1000);
 
             editor.addObject(mesh);
