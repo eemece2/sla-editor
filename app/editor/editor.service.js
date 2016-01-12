@@ -69,9 +69,9 @@
 
         function addCube(editor) {
             // TODO: params to config service
-            var width = 200;
-            var height = 20;
-            var depth = 200;
+            var width = 50;
+            var height = 50;
+            var depth = 50;
 
             var widthSegments = 1;
             var heightSegments = 1;
