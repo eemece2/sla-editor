@@ -5,15 +5,47 @@
 
     function editorService() {
         var editor = null;
+        var limits = {
+            width: 200,
+            height: 200
+        };
+        var gridStep = 10;
+        var slicePlane; // Mesh
 
         return {
+            getEditor: getEditor,
+            getLimits: getLimits,
             addCube: addCube,
             addSphere: addSphere,
             addCylinder: addCylinder,
-            remove: remove
+            remove: remove,
+            renderSlicePlane: renderSlicePlane,
+            moveSlicePlane: moveSlicePlane
         };
 
         ///////////////////////////////////////////////////////////////////////
+
+        function getEditor() {
+            if(!editor) {
+                initEditor();
+            }
+
+            return editor;
+        }
+
+        function initEditor() {
+            editor = new Editor();
+            // limits box
+            renderLimitBox(limits, editor.sceneHelpers);
+            // Axis
+            renderAxis(limits.width / 2, editor.sceneHelpers);
+            // Grid
+            renderGrid(limits.width / 2, gridStep, editor.sceneHelpers);
+        }
+
+        function getLimits() {
+            return limits;
+        }
 
         function addCube(editor) {
             // TODO: params to config service
@@ -76,5 +108,100 @@
             editor.removeObject(object);
             editor.select(parent);
         }
+
+        // Slicer plane
+        function renderSlicePlane() {
+            var geometry = new THREE.BoxGeometry(limits.width, 1, limits.width);
+            var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            slicePlane = new THREE.Mesh(geometry, material);
+
+            editor.sceneHelpers.add(slicePlane);
+        }
+
+        function moveSlicePlane(zSlicer) {
+            slicePlane.position.y = zSlicer;
+            editor.signals.sceneGraphChanged.dispatch();
+        }
+
+        ///////////////////////////////////////////////////////////////////////
+
+        function renderLimitBox(limits, scene) {
+            var limitGeometry = new THREE.Geometry();
+            var limitMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
+            var ww = limits.width / 2;
+            var hh = limits.height;
+            limitGeometry.vertices.push(
+                    new THREE.Vector3(ww, 0, ww),
+                    new THREE.Vector3(ww, hh, ww),
+                    new THREE.Vector3(-ww, hh, ww),
+                    new THREE.Vector3(-ww, 0, ww)
+            );
+            limitGeometry.vertices.push(
+                    new THREE.Vector3(-ww, 0, ww),
+                    new THREE.Vector3(-ww, hh, ww),
+                    new THREE.Vector3(-ww, hh, -ww),
+                    new THREE.Vector3(-ww, 0, -ww)
+            );
+            limitGeometry.vertices.push(
+                    new THREE.Vector3(-ww, 0, -ww),
+                    new THREE.Vector3(-ww, hh, -ww),
+                    new THREE.Vector3(ww, hh, -ww),
+                    new THREE.Vector3(ww, 0, -ww)
+            );
+            limitGeometry.vertices.push(
+                    new THREE.Vector3(ww, 0, -ww),
+                    new THREE.Vector3(ww, hh, -ww),
+                    new THREE.Vector3(ww, hh, ww),
+                    new THREE.Vector3(ww, 0, ww)
+            );
+            var line = new THREE.Line(limitGeometry, limitMaterial);
+            scene.add(line);
+        }
+
+        function renderAxis(ww, scene) {
+            var axisHelper = new THREE.AxisHelper( ww + 20 );
+            scene.add( axisHelper );
+            // Axis texts
+            var textMaterial = new THREE.MeshLambertMaterial( { color: 0x2288C1, overdraw: 0.5 } );
+            var textSize = 10;
+            var textHeight = 1;
+            // X
+            var textAxisX = new THREE.TextGeometry( 'x', {
+                size: textSize,
+                height: textHeight,
+                font: "helvetiker"
+            });
+            var textX = new THREE.Mesh( textAxisX, textMaterial );
+            var gap = 10;
+            textX.translateX(ww + gap);
+            textX.rotateX(Math.PI/2);
+            scene.add(textX);
+            // Y
+            var textAxisY = new THREE.TextGeometry( 'y', {
+                size: textSize,
+                height: textHeight,
+                font: "helvetiker"
+            });
+            var textY = new THREE.Mesh( textAxisY, textMaterial );
+            textY.translateY(ww + gap);
+            scene.add(textY);
+            // Z
+            var textAxisZ = new THREE.TextGeometry( 'z', {
+                size: textSize,
+                height: textHeight,
+                font: "helvetiker"
+            });
+            var textZ = new THREE.Mesh( textAxisZ, textMaterial );
+            textZ.translateZ(ww + gap);
+            textZ.rotateY(-Math.PI/2);
+            textZ.rotateX(-Math.PI/2);
+            scene.add(textZ);
+        }
+
+        function renderGrid(ww, step, scene) {
+            var grid = new THREE.GridHelper(ww, step);
+            scene.add(grid);
+        }
+
     }
 })();

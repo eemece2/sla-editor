@@ -15,23 +15,9 @@ var Viewport = function ( editor, domElement ) {
 
     var objects = [];
 
-    // helpers
-    var limits = {
-        width: 200,
-        height: 200
-    };
-    var grid = new THREE.GridHelper(limits.width / 2, 10);
-    sceneHelpers.add( grid );
-
-    // limits box
-    renderLimitBox(limits, sceneHelpers);
-
     var camera = editor.camera;
     camera.position.fromArray( editor.config.getKey( 'camera/position' ) );
     camera.lookAt( new THREE.Vector3().fromArray( editor.config.getKey( 'camera/target' ) ) );
-
-    // Axis
-    renderAxis(limits.width / 2);
 
     // Selection box
     var selectionBox = new THREE.BoxHelper();
@@ -232,27 +218,6 @@ var Viewport = function ( editor, domElement ) {
     signals.editorCleared.add( function () {
 
         controls.center.set( 0, 0, 0 );
-        render();
-
-    } );
-
-    signals.themeChanged.add( function ( value ) {
-
-        switch ( value ) {
-
-            case 'css/light.css':
-                grid.setColors( 0x444444, 0x888888 );
-                clearColor = 0xaaaaaa;
-                break;
-            case 'css/dark.css':
-                grid.setColors( 0xbbbbbb, 0x888888 );
-                clearColor = 0x333333;
-                break;
-
-        }
-
-        //renderer.setClearColor( clearColor );
-
         render();
 
     } );
@@ -560,79 +525,6 @@ var Viewport = function ( editor, domElement ) {
 
         }
 
-    }
-
-    function renderLimitBox(limits, scene) {
-        var limitGeometry = new THREE.Geometry();
-        var limitMaterial = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
-        var ww = limits.width / 2;
-        var hh = limits.height;
-        limitGeometry.vertices.push(
-                new THREE.Vector3(ww, 0, ww),
-                new THREE.Vector3(ww, hh, ww),
-                new THREE.Vector3(-ww, hh, ww),
-                new THREE.Vector3(-ww, 0, ww)
-        );
-        limitGeometry.vertices.push(
-                new THREE.Vector3(-ww, 0, ww),
-                new THREE.Vector3(-ww, hh, ww),
-                new THREE.Vector3(-ww, hh, -ww),
-                new THREE.Vector3(-ww, 0, -ww)
-        );
-        limitGeometry.vertices.push(
-                new THREE.Vector3(-ww, 0, -ww),
-                new THREE.Vector3(-ww, hh, -ww),
-                new THREE.Vector3(ww, hh, -ww),
-                new THREE.Vector3(ww, 0, -ww)
-        );
-        limitGeometry.vertices.push(
-                new THREE.Vector3(ww, 0, -ww),
-                new THREE.Vector3(ww, hh, -ww),
-                new THREE.Vector3(ww, hh, ww),
-                new THREE.Vector3(ww, 0, ww)
-        );
-        var line = new THREE.Line(limitGeometry, limitMaterial);
-        scene.add(line);
-    }
-
-    function renderAxis(ww) {
-        var axisHelper = new THREE.AxisHelper( ww + 20 );
-        sceneHelpers.add( axisHelper );
-        // Axis texts
-        var textMaterial = new THREE.MeshLambertMaterial( { color: 0x2288C1, overdraw: 0.5 } );
-        var textSize = 10;
-        var textHeight = 1;
-        // X
-        var textAxisX = new THREE.TextGeometry( 'x', {
-            size: textSize,
-            height: textHeight,
-            font: "helvetiker"
-        });
-        var textX = new THREE.Mesh( textAxisX, textMaterial );
-        var gap = 10;
-        textX.translateX(ww + gap);
-        textX.rotateX(Math.PI/2);
-        sceneHelpers.add(textX);
-        // Y
-        var textAxisY = new THREE.TextGeometry( 'y', {
-            size: textSize,
-            height: textHeight,
-            font: "helvetiker"
-        });
-        var textY = new THREE.Mesh( textAxisY, textMaterial );
-        textY.translateY(ww + gap);
-        sceneHelpers.add(textY);
-        // Z
-        var textAxisZ = new THREE.TextGeometry( 'z', {
-            size: textSize,
-            height: textHeight,
-            font: "helvetiker"
-        });
-        var textZ = new THREE.Mesh( textAxisZ, textMaterial );
-        textZ.translateZ(ww + gap);
-        textZ.rotateY(-Math.PI/2);
-        textZ.rotateX(-Math.PI/2);
-        sceneHelpers.add(textZ);
     }
 
     function render() {

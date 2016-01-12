@@ -81,7 +81,7 @@
                             <div flex="10" layout layout-align="center center">
                                 <span class="md-body-1">Z</span>
                             </div>
-                            <md-slider flex min="0" max="200" ng-model="sidebar.zSlice" aria-label="red" id="red-slider" class>
+                            <md-slider flex min="0" max="200" ng-model="sidebar.zSlice" ng-change="sidebar.sliceMoved(sidebar.zSlice)" aria-label="red" id="red-slider" class>
                             </md-slider>
                             <div flex="10" layout layout-align="center center">
                                 {{sidebar.zSlice}}

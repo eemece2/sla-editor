@@ -3,10 +3,10 @@
         .module('myApp')
         .controller('AppController', appController);
 
-    function appController() {
+    function appController(editorService) {
         var vm = this;
 
-        vm.editor = new Editor();
+        vm.editor = editorService.getEditor();
 
         vm.width = 800;
         vm.height = 800;
@@ -18,5 +18,10 @@
         vm.editor.signals.objectAdded.add(function(object) {
             object.material = material;
         });
+
+        // Slicer
+        var zSlice = editorService.getLimits().height;
+        editorService.renderSlicePlane();
+        editorService.moveSlicePlane(zSlice);
     }
 })();

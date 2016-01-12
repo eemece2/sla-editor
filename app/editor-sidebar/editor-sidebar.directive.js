@@ -23,7 +23,7 @@
         var vm = this;
 
         vm.mode = 'translate';
-        vm.zSlice = 100;
+        vm.zSlice = editorService.getLimits().height;
 
         // add cube action
         this.addCube = function() {
@@ -70,6 +70,10 @@
 
         this.doSlice = function() {
             slicerService.doSlice(vm.editor, vm.zSlice);
+        };
+
+        this.sliceMoved = function(zSlice) {
+            editorService.moveSlicePlane(zSlice);
         };
 
     }
